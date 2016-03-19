@@ -1,5 +1,5 @@
 # Lego
-*Little sweet lego projects*
+Little sweet lego projects
 
 
 
