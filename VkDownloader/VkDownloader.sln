@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VkDownloader.UI", "VkDownloader\VkDownloader.UI.csproj", "{605EC039-4E3C-4A50-9204-82BB390BFEFF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VkDownloader.UI", "VkDownloader.UI\VkDownloader.UI.csproj", "{605EC039-4E3C-4A50-9204-82BB390BFEFF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VkDownloader.Core", "VkDownloader.Core\VkDownloader.Core.csproj", "{8E379398-7DD7-434F-BFC9-AEB5791B4525}"
 EndProject
