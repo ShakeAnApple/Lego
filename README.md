@@ -10,4 +10,4 @@ Vk-api test wpf-app for downloading recently added to "My audio" tunes to the sp
 
 #### FileSystemWatcherTest(in developing)
 
-Console application(or maybe WPF... as luck would have it) that can watch changes happend to *.txt files in multiple directories then index and search their content. 
+Console application(or maybe WPF... as luck would have it) for watching changes happend to *.txt files in multiple directories, indexing and searching their content. 
