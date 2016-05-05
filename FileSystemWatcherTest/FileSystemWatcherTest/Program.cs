@@ -10,6 +10,11 @@ namespace FileSystemWatcherTest
     {
         static void Main(string[] args)
         {
+            using (var indexer = new FilesIndexer())
+            {
+                indexer.AddPaths(new [] {@"C:\Users\1\Desktop\test"});
+                
+            }
         }
     }
 }

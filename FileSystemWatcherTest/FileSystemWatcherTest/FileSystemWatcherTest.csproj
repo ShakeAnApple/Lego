@@ -51,8 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DirsHelper.cs" />
+    <Compile Include="DirectoryHelper.cs" />
     <Compile Include="FilesIndexer.cs" />
+    <Compile Include="FilesSearcher.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

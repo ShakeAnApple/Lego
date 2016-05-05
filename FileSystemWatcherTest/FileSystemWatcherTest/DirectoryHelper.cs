@@ -3,7 +3,7 @@ using System.IO;
 
 namespace FileSystemWatcherTest
 {
-    internal class DirsHelper
+    internal static class DirectoryHelper
     {
         public static string[] ExpandAll(string path)
         {

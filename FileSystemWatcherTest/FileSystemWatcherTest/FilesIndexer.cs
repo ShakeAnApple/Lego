@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;
@@ -14,58 +13,58 @@ namespace FileSystemWatcherTest
 {
     public abstract class MultipleDirectoriesWatcher : IDisposable
     {
-        private List<FileSystemWatcher> _fsWatchers;
-        // maybe tree?(usefull in case of directory rename) the whole tree for just a check? 
-        private readonly HashSet<string> _pathsToWatch;
+        private Dictionary<string, FileSystemWatcher> _fsWatchers;
 
         protected MultipleDirectoriesWatcher()
         {
-            _fsWatchers = new List<FileSystemWatcher>();
-            _pathsToWatch = new HashSet<string>();       
+            _fsWatchers = new Dictionary<string, FileSystemWatcher>();
         }
 
         protected abstract void OnFileCreated(object sender, FileSystemEventArgs e);
         protected abstract void OnFileRenamed(object sender, RenamedEventArgs e);
         protected abstract void OnFileRemoved(object sender, FileSystemEventArgs e);
 
-        public bool RegisterWatcher(string path, bool includeSubdirectories)
+        private void RegisterSingleWatcher(string path)
         {
-            // TODO deep subWatch?
-            // TODO expand subfolders
-            if (!_pathsToWatch.Add(path))
+            if (_fsWatchers.ContainsKey(path))
             {
-                return false;
+                return;
             }
 
-            var watcher = new FileSystemWatcher(path)
-            {
-                IncludeSubdirectories = includeSubdirectories
-            };
+            var watcher = new FileSystemWatcher(path);
+            _fsWatchers.Add(path, watcher);
+
             watcher.Created += OnFileCreated;
             watcher.Renamed += OnFileRenamed;
             watcher.Deleted += OnFileRemoved;
-
-            _fsWatchers.Add(watcher);
-            return true;
+            watcher.EnableRaisingEvents = true;
         }
 
-        protected virtual void Dispose(bool disposing)
+        public void RegisterWatcher(string path, bool includeSubdirectories)
         {
-            if (!disposing) return;
-
-            foreach (var watcher in _fsWatchers)
+            if (!includeSubdirectories)
             {
-                watcher.Dispose();
+                RegisterSingleWatcher(path);
+                return;
+            }
+
+            var paths = DirectoryHelper.ExpandAll(path);
+            foreach (var p in paths)
+            {
+                RegisterSingleWatcher(p);
             }
         }
 
         public void Dispose()
         {
-            Dispose(true);
+            foreach (var watcher in _fsWatchers)
+            {
+                watcher.Value.Dispose();
+            }
         }
     }
 
-    public class FilesIndexer : MultipleDirectoriesWatcher
+    public class FilesIndexer : MultipleDirectoriesWatcher, IDisposable
     {
         private readonly IndexWriter _indxWriter;
         private readonly LuceneDirectory _indxDir;
@@ -88,38 +87,29 @@ namespace FileSystemWatcherTest
             AddPath(path, includeSubdirectories);
         }
 
-        private bool AddPath(string path, bool includeSubdirectories)
+        private void AddPath(string path, bool includeSubdirs)
         {
-            if (!base.RegisterWatcher(path, includeSubdirectories))
-            {
-                return false;
-            }
-
-            var paths = DirsHelper.GetFilesByExtension(path, FILES_TO_INDEX_EXTENSION, includeSubdirectories);
+            base.RegisterWatcher(path, includeSubdirs);
             
-            this.UpdateIndex(paths);
-            return true;
+            var filesToIndex = DirectoryHelper.GetFilesByExtension(path, FILES_TO_INDEX_EXTENSION, includeSubdirs);
+            this.UpdateIndex(filesToIndex);
         }
 
-        public bool AddPaths(string[] paths, bool includeSubdirectories = false)
+        public void AddPaths(string[] paths, bool includeSubdirs = false)
         {
             foreach (var path in paths)
             {
-                if (!AddPath(path, includeSubdirectories))
-                {
-                    return false;
-                }
+                AddPath(path, includeSubdirs);
             }
-            _indxWriter.Commit();
-            return true;
+
+            _indxWriter.Flush(true, false, true);
         }
 
         private void UpdateIndex(FileInfo[] files)
         {
             foreach (var file in files)
             {
-                var doc = CreateDoc(file);
-                _indxWriter.AddDocument(doc);
+                _indxWriter.AddDocument(CreateDoc(file));
             }
         }
 
@@ -133,9 +123,10 @@ namespace FileSystemWatcherTest
 
         #region watcher impl
         // TODO handle subfolders everywhere (some setting?)
+        
         protected override void OnFileCreated(object sender, FileSystemEventArgs e)
         {
-            var paths = DirsHelper.GetFilesByExtension(e.FullPath, FILES_TO_INDEX_EXTENSION);
+            var paths = DirectoryHelper.GetFilesByExtension(e.FullPath, FILES_TO_INDEX_EXTENSION);
             this.UpdateIndex(paths);
         }
 
@@ -155,13 +146,12 @@ namespace FileSystemWatcherTest
         }
         #endregion
 
-        protected override void Dispose(bool disposing)
+        void IDisposable.Dispose()
         {
-            if (disposing)
-            {
-                _indxWriter.Dispose();
-            }
-            base.Dispose(disposing);
+            _indxWriter.Dispose();
+            _indxDir.Dispose();
+            
+            base.Dispose();
         }
     }
 
