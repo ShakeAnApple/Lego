@@ -52,8 +52,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DirectoryHelper.cs" />
+    <Compile Include="FileContentPreprocessor.cs" />
     <Compile Include="FilesIndexer.cs" />
     <Compile Include="FilesSearcher.cs" />
+    <Compile Include="Filters.cs" />
+    <Compile Include="IndexFields.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

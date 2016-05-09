@@ -11,6 +11,12 @@ using Version = Lucene.Net.Util.Version;
 
 namespace FileSystemWatcherTest
 {
+    public class LogFile
+    {
+        public string FullPath { get; set; }
+        public List<LogLine> Content { get; set; }
+    }
+
     public abstract class MultipleDirectoriesWatcher : IDisposable
     {
         private Dictionary<string, FileSystemWatcher> _fsWatchers;
@@ -40,9 +46,9 @@ namespace FileSystemWatcherTest
             watcher.EnableRaisingEvents = true;
         }
 
-        public void RegisterWatcher(string path, bool includeSubdirectories)
+        public void RegisterWatcher(string path, bool includeSubdirs)
         {
-            if (!includeSubdirectories)
+            if (!includeSubdirs)
             {
                 RegisterSingleWatcher(path);
                 return;
@@ -68,12 +74,13 @@ namespace FileSystemWatcherTest
     {
         private readonly IndexWriter _indxWriter;
         private readonly LuceneDirectory _indxDir;
+        private List<IFilesFilter> _filters; 
 
         private const string F_PATH = "path";
         private const string F_CONTENT = "content";
 
         // hardcooooooode
-        private const string FILES_TO_INDEX_EXTENSION = "*.txt";
+        private const string FILES_TO_INDEX_EXTENSION = "*.log";
 
         public FilesIndexer()
         {
@@ -87,12 +94,33 @@ namespace FileSystemWatcherTest
             AddPath(path, includeSubdirectories);
         }
 
+        public FilesIndexer(string path, bool includeSubdirectories, List<IFilesFilter> filters)
+            : this()
+        {
+            AddPath(path, includeSubdirectories);
+            _filters = filters;
+        }
+
         private void AddPath(string path, bool includeSubdirs)
         {
             base.RegisterWatcher(path, includeSubdirs);
             
-            var filesToIndex = DirectoryHelper.GetFilesByExtension(path, FILES_TO_INDEX_EXTENSION, includeSubdirs);
-            this.UpdateIndex(filesToIndex);
+            var filesPathsToIndex = DirectoryHelper.GetFilesByExtension(path, FILES_TO_INDEX_EXTENSION, includeSubdirs);
+            var files = new List<LogFile>();
+            foreach (var filePath in filesPathsToIndex)
+            {
+                files.Add(new LogFile
+                {
+                    FullPath = filePath.FullName,
+                    Content = FileContentPreprocessor.GetLogLines(filePath.FullName)
+                });
+            }
+            this.UpdateIndex(files);
+        }
+
+        public LuceneDirectory GetIndexDir()
+        {
+            return _indxDir;
         }
 
         public void AddPaths(string[] paths, bool includeSubdirs = false)
@@ -102,23 +130,31 @@ namespace FileSystemWatcherTest
                 AddPath(path, includeSubdirs);
             }
 
-            _indxWriter.Flush(true, false, true);
+            _indxWriter.Commit();
         }
 
-        private void UpdateIndex(FileInfo[] files)
+        private void UpdateIndex(List<LogFile> files)
         {
             foreach (var file in files)
             {
-                _indxWriter.AddDocument(CreateDoc(file));
+                CreateDoc(file).ForEach(_indxWriter.AddDocument);
             }
         }
 
-        private Document CreateDoc(FileInfo file)
+        private List<Document> CreateDoc(LogFile file)
         {
-            var doc = new Document();
-            doc.Add(new Field(F_PATH, file.DirectoryName, Field.Store.YES, Field.Index.NO));
-            doc.Add(new Field(F_CONTENT, new StreamReader(file.OpenRead())));
-            return doc;
+            var docs = new List<Document>();
+            foreach (var line in file.Content)
+            {
+                var doc = new Document();
+                doc.Add(new Field(IndexFields.Path, file.FullPath, Field.Store.YES, Field.Index.NO));
+                doc.Add(new Field(IndexFields.Date, line.Date, Field.Store.YES, Field.Index.NO));
+                doc.Add(new Field(IndexFields.Status, line.Status.ToString(), Field.Store.YES, Field.Index.ANALYZED));
+                doc.Add(new Field(IndexFields.Message, line.Message, Field.Store.YES, Field.Index.ANALYZED));
+                doc.Add(new Field(IndexFields.Thread, line.Thread.ToString(), Field.Store.YES, Field.Index.NO));
+                docs.Add(doc);
+            }
+            return docs;
         }
 
         #region watcher impl
@@ -127,7 +163,7 @@ namespace FileSystemWatcherTest
         protected override void OnFileCreated(object sender, FileSystemEventArgs e)
         {
             var paths = DirectoryHelper.GetFilesByExtension(e.FullPath, FILES_TO_INDEX_EXTENSION);
-            this.UpdateIndex(paths);
+            //this.UpdateIndex(paths);
         }
 
         protected override void OnFileRenamed(object sender, RenamedEventArgs e)

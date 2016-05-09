@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace FileSystemWatcherTest
@@ -10,9 +11,19 @@ namespace FileSystemWatcherTest
             throw new NotImplementedException();
         }
 
-        public static FileInfo[] GetFilesByExtension(string path, string extension, bool includeSubdirectories = false)
+        public static List<FileInfo> GetFilesByExtension(string path, string extension, bool includeSubdirs = false)
         {
-            throw new NotImplementedException();
+            var result = new List<FileInfo>();
+            var filePathes = Directory.GetFiles(path, extension);
+            foreach (var fpath in filePathes)
+            {
+                result.Add(new FileInfo(fpath));
+            }
+            if (includeSubdirs)
+            {
+                
+            }
+            return result;
         }
     }
 }
