@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace FileSystemWatcherTest
+namespace FileSystemWatcherTest.Old
 {
+    // wtf -_-
     internal static class DirectoryHelper
     {
         public static string[] ExpandAll(string path)

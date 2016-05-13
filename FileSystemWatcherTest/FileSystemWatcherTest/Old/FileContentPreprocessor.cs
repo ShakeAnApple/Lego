@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace FileSystemWatcherTest
+namespace FileSystemWatcherTest.Old
 {
     // TODO just to test, replace this
     public class LogLine

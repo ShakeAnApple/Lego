@@ -9,7 +9,7 @@ using Directory = System.IO.Directory;
 using LuceneDirectory = Lucene.Net.Store.Directory;
 using Version = Lucene.Net.Util.Version;
 
-namespace FileSystemWatcherTest
+namespace FileSystemWatcherTest.Old
 {
     public class LogFile
     {

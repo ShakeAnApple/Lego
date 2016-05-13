@@ -6,7 +6,7 @@ using Lucene.Net.Search;
 using Lucene.Net.Store;
 using Version = Lucene.Net.Util.Version;
 
-namespace FileSystemWatcherTest
+namespace FileSystemWatcherTest.Old
 {
     public class Match
     {

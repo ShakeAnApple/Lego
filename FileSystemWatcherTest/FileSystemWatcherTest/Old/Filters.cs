@@ -1,12 +1,13 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace FileSystemWatcherTest
+namespace FileSystemWatcherTest.Old
 {
+    // maybe someday it'll become usefull
     public enum FilesFilterType
     {
         Exclude,
         WildCard,
-        NamePattern,
+        NamePattern
         // whatever
     }
 

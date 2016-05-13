@@ -1,4 +1,4 @@
-﻿namespace FileSystemWatcherTest
+﻿namespace FileSystemWatcherTest.Old
 {
     public static class IndexFields
     {
