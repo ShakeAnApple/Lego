@@ -83,6 +83,7 @@
     <Compile Include="Repository\GraphDataContext.cs" />
     <Compile Include="Repository\Models.cs" />
     <Compile Include="Repository\Settings.cs" />
+    <Compile Include="sample.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1,5 +1,5 @@
 ﻿using System;
-using FileSystemWatcherTest.Old;
+using FileSystemWatcherTest.Repository;
 
 namespace FileSystemWatcherTest
 {
@@ -7,8 +7,10 @@ namespace FileSystemWatcherTest
     {
         static void Main(string[] args)
         {
-            var files = new[] {"paths to log files"};
-            var logs = new Parser
+            //  var files = new[] {"paths to log files"};
+            //var logs = new Parser
+
+            GraphDataContext.Test();
 
             //// turn into messages
             //using (var indexer = new FilesIndexer())
@@ -19,4 +21,5 @@ namespace FileSystemWatcherTest
             //}
         }
     }
+
 }

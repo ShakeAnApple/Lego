@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
-using FileSystemWatcherTest.Models;
 
 namespace FileSystemWatcherTest.Repository
 {
     [Table]
     public class File
     {
-        private Guid _id;
+        [Column(IsPrimaryKey = true)]
+        public Guid Id { get; set; }
 
-        [Column(Storage="_id", IsPrimaryKey = true, IsDbGenerated = true)]
-        public Guid Id { get { return this._id; } }
-
+        [Column]
         public string FullName { get; set; }
 
         [Association(ThisKey="Id", OtherKey = "FileId")]
@@ -22,38 +20,52 @@ namespace FileSystemWatcherTest.Repository
     [Table]
     public class Message
     {
-        private Guid _id;
+        [Column(IsPrimaryKey = true)]
+        public Guid Id { get; set; }
 
-        [Column(Storage = "_id", IsPrimaryKey = true, IsDbGenerated = true)]
-        public Guid Id {get { return this._id; } }
-
-        [Association(IsForeignKey = true)]
+        [Column]
         public Guid FileId { get; set; }
 
-        public DateTime Timestamp { get; set; }
+        [Column]
         public int Order { get; set; }
-        public Status Severity { get; set; }
-        public int Thread { get; set; }
+
+        [Column]
         public string Body { get; set; }
     }
 
     [Table]
-    public class TaggedMessage
+    public class MessageTag
     {
+        [Column]
         public Guid MessageId { get; set; }
+
+        [Column]
         public Guid TagId { get; set; }
 
-        public string TagValue { get; set; }
+        [Column]
+        public int StartPos { get; set; }
+
+        [Column]
+        public int Length { get; set; }
     }
 
     [Table]
     public class Tag
     {
-        private Guid _id;
+        [Column]
+        public Guid TagId { get; set; }
 
-        [Column(Storage = "_id", IsPrimaryKey = true, IsDbGenerated = true)]
-        public Guid Id { get { return this._id; } }
+        [Column]
+        public string Value { get; set; }
+    }
 
+    [Table]
+    public class TagType
+    {
+        [Column(IsPrimaryKey = true)]
+        public Guid Id { get; set; }
+
+        [Column]
         public string Name { get; set; }
     }
 
