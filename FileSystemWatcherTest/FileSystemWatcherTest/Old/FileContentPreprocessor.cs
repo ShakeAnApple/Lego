@@ -88,7 +88,7 @@ namespace FileSystemWatcherTest.Old
         {
             var result = new List<LogLine>();
 
-            var lines = File.ReadAllLines(filePath);
+            var lines = System.IO.File.ReadAllLines(filePath);
             foreach (var line in lines)
             {
                 if (string.IsNullOrEmpty(line) || line[0] != '[')

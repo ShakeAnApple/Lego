@@ -1,10 +1,11 @@
-﻿using System.IO;
+﻿using System.Configuration;
+using System.IO;
 using Lucene.Net.Store;
 using Directory = Lucene.Net.Store.Directory;
 
 namespace FileSystemWatcherTest.Repository
 {
-    public class Settings
+    public class ConfigRepository
     {
         public static Directory IndexDirectory()
         {
@@ -15,6 +16,11 @@ namespace FileSystemWatcherTest.Repository
             }
 
             return new SimpleFSDirectory(new DirectoryInfo(path));
+        }
+
+        public static string ConnectionString()
+        {
+            return ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         }
     }
 }

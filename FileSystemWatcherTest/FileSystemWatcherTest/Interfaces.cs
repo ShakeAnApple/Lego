@@ -1,22 +1,19 @@
-﻿using System.Collections.Generic;
-using FileSystemWatcherTest.Models;
+﻿using System;
+using System.Collections.Generic;
 
 namespace FileSystemWatcherTest
 {
-    // watch file changes? not here?
-    // watch the difference? (on refresh)
-    public interface IParser
+    public interface IBaseManager<T> where T : class
     {
-        List<LogFile> GetLogs(IEnumerable<string> paths); 
+        void Save(T entity);
+        void Remove(Guid id);
+        List<T> List();
+        T Get(Guid id);
     }
 
-    public interface IFileIndexer
-    {
-        void AddToIndex(List<LogFile> files);
-    }
-
-    public interface ITagger
-    {
-        void GetTaggedMessages(List<LogFile> files);
-    }
+    //public interface IFileManager : IBaseManager<File>
+    //{
+    //    void UpdateFiles();
+    //    void AddFiles()
+    //}
 }

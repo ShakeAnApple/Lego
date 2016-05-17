@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Linq;
 using FileSystemWatcherTest.Repository;
 
 namespace FileSystemWatcherTest
@@ -10,8 +11,19 @@ namespace FileSystemWatcherTest
             //  var files = new[] {"paths to log files"};
             //var logs = new Parser
 
-            GraphDataContext.Test();
+            //GraphDataContext.Test();
 
+            var fId = Guid.NewGuid();
+            var fie = new Repository.File
+            {
+                Id = fId,
+                FullName = "ololo",
+                Messages = new EntitySet<Repository.Message>()
+            };
+            var lol = new LolRepo();
+            lol.Save(fie);
+            var dbFile = lol.Get(fId);
+            Console.WriteLine(dbFile.FullName);
             //// turn into messages
             //using (var indexer = new FilesIndexer())
             //{

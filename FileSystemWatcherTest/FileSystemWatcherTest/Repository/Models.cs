@@ -10,7 +10,7 @@ namespace FileSystemWatcherTest.Repository
         [Column(IsPrimaryKey = true)]
         public Guid Id { get; set; }
 
-        [Column]
+        [Column(CanBeNull = false)]
         public string FullName { get; set; }
 
         [Association(ThisKey="Id", OtherKey = "FileId")]
@@ -53,7 +53,10 @@ namespace FileSystemWatcherTest.Repository
     public class Tag
     {
         [Column]
-        public Guid TagId { get; set; }
+        public Guid Id { get; set; }
+
+        [Column]
+        public Guid TagTypeId { get; set; }
 
         [Column]
         public string Value { get; set; }
@@ -65,8 +68,11 @@ namespace FileSystemWatcherTest.Repository
         [Column(IsPrimaryKey = true)]
         public Guid Id { get; set; }
 
-        [Column]
+        [Column(CanBeNull = false)]
         public string Name { get; set; }
+
+        [Column(CanBeNull = false)]
+        public string Pattern { get; set; }
     }
 
 }
