@@ -81,10 +81,12 @@
     <Compile Include="Parser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\GraphDataContext.cs" />
-    <Compile Include="Repository\Interfaces.cs" />
-    <Compile Include="Repository\Models.cs" />
+    <Compile Include="Repository\Database\GraphDataContext.cs" />
+    <Compile Include="Repository\Database\Interfaces.cs" />
+    <Compile Include="Repository\Database\Models.cs" />
     <Compile Include="Repository\ConfigRepository.cs" />
+    <Compile Include="Repository\Database\Repository.cs" />
+    <Compile Include="Repository\Database\UnitOfWork.cs" />
     <Compile Include="sample.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -14,16 +14,16 @@ namespace FileSystemWatcherTest
             //GraphDataContext.Test();
 
             var fId = Guid.NewGuid();
-            var fie = new Repository.File
+            var fie = new Repository.Database.File
             {
                 Id = fId,
                 FullName = "ololo",
-                Messages = new EntitySet<Repository.Message>()
+                Messages = new EntitySet<Repository.Database.Message>()
             };
             var lol = new LolRepo();
             lol.Save(fie);
-            var dbFile = lol.Get(fId);
-            Console.WriteLine(dbFile.FullName);
+          //  var dbFile = lol.Get(fId);
+           // Console.WriteLine(dbFile.FullName);
             //// turn into messages
             //using (var indexer = new FilesIndexer())
             //{

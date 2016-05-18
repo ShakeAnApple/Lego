@@ -1,10 +1,7 @@
-﻿using System;
+﻿using System.Data.Linq;
 using System.Data.SqlServerCe;
-using System.Data.Linq;
-using System.Linq;
 
-
-namespace FileSystemWatcherTest.Repository
+namespace FileSystemWatcherTest.Repository.Database
 {
     public class GraphDataContext : DataContext
     {

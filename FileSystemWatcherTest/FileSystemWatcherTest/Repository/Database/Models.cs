@@ -2,10 +2,16 @@
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
 
-namespace FileSystemWatcherTest.Repository
+namespace FileSystemWatcherTest.Repository.Database
 {
+
+    public class DBEntity
+    {
+        public Guid Id { get; set; }
+    }
+
     [Table]
-    public class File
+    public class File : DBEntity
     {
         [Column(IsPrimaryKey = true)]
         public Guid Id { get; set; }
@@ -18,7 +24,7 @@ namespace FileSystemWatcherTest.Repository
     }
 
     [Table]
-    public class Message
+    public class Message : DBEntity
     {
         [Column(IsPrimaryKey = true)]
         public Guid Id { get; set; }
@@ -34,8 +40,11 @@ namespace FileSystemWatcherTest.Repository
     }
 
     [Table]
-    public class MessageTag
+    public class MessageTag : DBEntity
     {
+        [Column(IsPrimaryKey = true)]
+        public Guid Id { get; set; }
+
         [Column]
         public Guid MessageId { get; set; }
 
@@ -50,7 +59,7 @@ namespace FileSystemWatcherTest.Repository
     }
 
     [Table]
-    public class Tag
+    public class Tag : DBEntity
     {
         [Column]
         public Guid Id { get; set; }
@@ -63,7 +72,7 @@ namespace FileSystemWatcherTest.Repository
     }
 
     [Table]
-    public class TagType
+    public class TagType : DBEntity
     {
         [Column(IsPrimaryKey = true)]
         public Guid Id { get; set; }
