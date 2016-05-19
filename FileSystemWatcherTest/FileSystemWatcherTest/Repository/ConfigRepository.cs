@@ -9,7 +9,8 @@ namespace FileSystemWatcherTest.Repository
     {
         public static Directory IndexDirectory()
         {
-            var path = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Index");
+            var dirName = ConfigurationManager.AppSettings["IndexDirName"];
+            var path = Path.Combine(System.IO.Directory.GetCurrentDirectory(), dirName);
             if (!System.IO.Directory.Exists(path))
             {
                 System.IO.Directory.CreateDirectory(path);

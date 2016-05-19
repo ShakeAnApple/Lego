@@ -9,9 +9,9 @@ namespace FileSystemWatcherTest
         public Guid Id { get; private set; }
         public string FullName { get; private set; }
 
-        public File(Guid id, string fullName)
+        public File(string fullName)
         {
-            this.Id = id;
+            this.Id = Guid.NewGuid();
             this.FullName = fullName;
         }
 
@@ -23,9 +23,9 @@ namespace FileSystemWatcherTest
         public Guid Id { get; private set; }
         public Guid FileId { get; private set; }
 
-        public Message(Guid id, Guid fileId)
+        public Message(Guid fileId)
         {
-            this.Id = id;
+            this.Id = Guid.NewGuid();
             this.FileId = fileId;
         }
 
@@ -45,9 +45,9 @@ namespace FileSystemWatcherTest
         public string Name { get; private set; }
         public string Pattern { get; private set; }
 
-        public Tag(Guid id, string name, string pattern)
+        public Tag(string name, string pattern)
         {
-            this.Id = id;
+            this.Id = Guid.NewGuid();
             this.Name = name;
             this.Pattern = pattern;
         }

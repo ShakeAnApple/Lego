@@ -28,28 +28,4 @@ namespace FileSystemWatcherTest.Repository.Database
         }
     }
 
-
-    //public class LolRepo : BaseRepository<File>
-    //{
-    //    public override void Save(File entity)
-    //    {
-    //        var a = Context.GetTable<File>().;
-    //    }
-
-    //    public override void Remove(Guid id)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-
-    //    public override List<File> List()
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-
-    //    public override File Get(Guid id)
-    //    {
-    //        return null;
-    //    }
-    //}
-
 }

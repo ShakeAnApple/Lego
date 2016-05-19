@@ -16,8 +16,8 @@ namespace FileSystemWatcherTest.Repository.Database
         {
         }
 
-        public static void Test()
-        {
+        //public static void Test()
+        //{
             
             //var cnnString = "Data Source=MyData.sdf;Persist Security Info=False;";
 
@@ -49,6 +49,6 @@ namespace FileSystemWatcherTest.Repository.Database
             //        Console.WriteLine(message.Id + " " + message.Body);
             //    }
             //}
-        }
+        //}
     }
 }

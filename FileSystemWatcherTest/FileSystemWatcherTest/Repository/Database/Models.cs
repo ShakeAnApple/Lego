@@ -7,15 +7,13 @@ namespace FileSystemWatcherTest.Repository.Database
 
     public class DBEntity
     {
+        [Column(IsPrimaryKey = true)]
         public Guid Id { get; set; }
     }
 
     [Table]
     public class File : DBEntity
     {
-        [Column(IsPrimaryKey = true)]
-        public Guid Id { get; set; }
-
         [Column(CanBeNull = false)]
         public string FullName { get; set; }
 
@@ -26,9 +24,6 @@ namespace FileSystemWatcherTest.Repository.Database
     [Table]
     public class Message : DBEntity
     {
-        [Column(IsPrimaryKey = true)]
-        public Guid Id { get; set; }
-
         [Column]
         public Guid FileId { get; set; }
 
@@ -42,9 +37,6 @@ namespace FileSystemWatcherTest.Repository.Database
     [Table]
     public class MessageTag : DBEntity
     {
-        [Column(IsPrimaryKey = true)]
-        public Guid Id { get; set; }
-
         [Column]
         public Guid MessageId { get; set; }
 
@@ -62,9 +54,6 @@ namespace FileSystemWatcherTest.Repository.Database
     public class Tag : DBEntity
     {
         [Column]
-        public Guid Id { get; set; }
-
-        [Column]
         public Guid TagTypeId { get; set; }
 
         [Column]
@@ -74,9 +63,6 @@ namespace FileSystemWatcherTest.Repository.Database
     [Table]
     public class TagType : DBEntity
     {
-        [Column(IsPrimaryKey = true)]
-        public Guid Id { get; set; }
-
         [Column(CanBeNull = false)]
         public string Name { get; set; }
 

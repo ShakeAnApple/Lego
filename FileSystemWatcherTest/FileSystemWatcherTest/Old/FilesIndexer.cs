@@ -76,9 +76,6 @@ namespace FileSystemWatcherTest.Old
         private readonly LuceneDirectory _indxDir;
         private List<IFilesFilter> _filters; 
 
-        private const string F_PATH = "path";
-        private const string F_CONTENT = "content";
-
         // hardcooooooode
         private const string FILES_TO_INDEX_EXTENSION = "*.log";
 
