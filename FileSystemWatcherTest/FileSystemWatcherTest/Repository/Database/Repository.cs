@@ -5,7 +5,7 @@ namespace FileSystemWatcherTest.Repository.Database
 {
     public class Repository<T> : BaseRepository<T> where T : DBEntity
     {
-        public override void Save(T entity)
+        public override void Add(T entity)
         {
             base.Context.GetTable<T>().InsertOnSubmit(entity);
         }

@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;
-using Lucene.Net.Store;
 
 namespace FileSystemWatcherTest.Repository.Index
 {
     public class IndexRepository : IIndexRepository
     {
         private readonly IndexWriter _writer;
-        private readonly Directory _indexDir;
 
-        public IndexRepository(IndexWriter writer, Directory indexDir)
+        public IndexRepository(IndexWriter writer)
         {
             _writer = writer;
-            _indexDir = indexDir;
         }
 
         private List<Document> CreateDoc(File file)
@@ -43,7 +39,7 @@ namespace FileSystemWatcherTest.Repository.Index
         //TODO it won't work
         public void RemoveFile(string path)
         {
-            var indexReader = IndexReader.Open(_indexDir, false);
+            var indexReader = IndexReader.Open(_writer.Directory, false);
             indexReader.DeleteDocuments(new Term(IndexFields.Path, path));
         }
 

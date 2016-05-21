@@ -8,7 +8,7 @@ namespace FileSystemWatcherTest
         void Save(T entity);
         void Remove(Guid id);
         List<T> List();
-        T Get(Guid id);
+        //T Get(Guid id);
     }
 
     //public interface IFileManager : IBaseManager<File>

@@ -3,17 +3,19 @@ using System.Linq;
 
 namespace FileSystemWatcherTest.Repository.Database
 {
-    public interface IBaseRepository<T>
+    public interface IRepository<T> where T : DBEntity
     {
-        void Save(T entity);
+        GraphDataContext Context { get; set; }
+
+        void Add(T entity);
         void Remove(T entity);
         IQueryable<T> AsQuery();
         T Get(Guid id);
     }
 
-    public abstract class BaseRepository<T> : IBaseRepository<T>
+    public abstract class BaseRepository<T> : IRepository<T> where T : DBEntity
     {
-        public abstract void Save(T entity);
+        public abstract void Add(T entity);
         public abstract void Remove(T entity);
         public abstract IQueryable<T> AsQuery();
         public abstract T Get(Guid id);

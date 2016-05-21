@@ -25,7 +25,7 @@ namespace FileSystemWatcherTest.Repository
             }
         }
 
-        public Repository<T> GetRepository<T>() where T : DBEntity
+        public IRepository<T> GetRepository<T>() where T : DBEntity
         {
             return new Repository<T>
             {
@@ -37,11 +37,10 @@ namespace FileSystemWatcherTest.Repository
         {
             if (_indexWriter == null)
             {
-                //TODO check if index exists
-                _indexWriter = new IndexWriter(ConfigRepository.IndexDirectory(), new StandardAnalyzer(Version.LUCENE_30), 
-                    true, IndexWriter.MaxFieldLength.LIMITED);
+                var indxDir = ConfigRepository.IndexDirectory();
+                _indexWriter = new IndexWriter(indxDir, new StandardAnalyzer(Version.LUCENE_30), 
+                    !IndexReader.IndexExists(indxDir), IndexWriter.MaxFieldLength.LIMITED);
             }
-
             return new IndexRepository(_indexWriter);
         }
 
@@ -64,7 +63,8 @@ namespace FileSystemWatcherTest.Repository
                 _context.Dispose();
                 _context = null;
             }
-            //TODO think about dynamic case (dispose takes time)
+
+            //TODO think about dynamic case (dispose is greedy for time)
             if (_indexWriter != null)
             {
                 _indexWriter.Dispose();

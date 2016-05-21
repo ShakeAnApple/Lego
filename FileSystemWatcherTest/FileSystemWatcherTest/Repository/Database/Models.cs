@@ -69,5 +69,4 @@ namespace FileSystemWatcherTest.Repository.Database
         [Column(CanBeNull = false)]
         public string Pattern { get; set; }
     }
-
 }
