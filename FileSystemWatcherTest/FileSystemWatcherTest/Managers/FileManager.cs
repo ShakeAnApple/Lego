@@ -7,8 +7,7 @@ using System.Runtime.Caching;
 using System.Text;
 using FileSystemWatcherTest.Repository;
 using FileSystemWatcherTest.Repository.Database;
-using DBFile = FileSystemWatcherTest.Repository.Database.File;
-using DBMessage = FileSystemWatcherTest.Repository.Database.Message;
+using DB = FileSystemWatcherTest.Repository.Database;
 
 namespace FileSystemWatcherTest.Managers
 {
@@ -26,7 +25,7 @@ namespace FileSystemWatcherTest.Managers
             using (var uow = new UnitOfWork())
             {
                 var indexRepo = uow.GetIndexRepository();
-                var fileRepo = uow.GetRepository<DBFile>();
+                var fileRepo = uow.GetRepository<DB.FileWithMessages>();
                 var cache = MemoryCache.Default;
 
                 long lastFilePos = 0;
@@ -61,23 +60,26 @@ namespace FileSystemWatcherTest.Managers
                 }
 
                 //TODO: use name as id? 
-                var dbFile = cache.Get(CacheHelper.GetCacheKey<DBFile>(file.FullName)) as DBFile;
+                var cacheKey = CacheHelper.GetCacheKey<DB.FileWithMessages>(file.FullName);
+                var dbFile = cache.Get(cacheKey) as DB.FileWithMessages;
                 if (dbFile == null)
                 {
                     dbFile = fileRepo.Get(file.Id);
                 }
                 if (dbFile == null)
                 {
-                    dbFile = new DBFile
+                    dbFile = new DB.FileWithMessages
                     {
                         Id = Guid.NewGuid(),
                         FullName = file.FullName
                     };
                     fileRepo.Add(dbFile);
+                    //cache.Add(cacheKey, dbFile, )
+                    //    cache.CreateCacheEntryChangeMonitor()
                 }
                 if (dbFile.Messages == null)
                 {
-                    dbFile.Messages = new EntitySet<DBMessage>();
+                    dbFile.Messages = new EntitySet<DB.Message>();
                 }
 
             }

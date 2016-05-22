@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace FileSystemWatcherTest.Repository.Database
 {
-    public interface IRepository<T> where T : DBEntity
+    public interface IRepository<T> where T : IDbEntity
     {
-        GraphDataContext Context { get; set; }
+        GraphDataContext Context { get; }
 
         void Add(T entity);
         void Remove(T entity);
@@ -13,20 +13,23 @@ namespace FileSystemWatcherTest.Repository.Database
         T Get(Guid id);
     }
 
-    public abstract class BaseRepository<T> : IRepository<T> where T : DBEntity
+    public abstract class BaseRepository<T> : IRepository<T> where T : IDbEntity
     {
         public abstract void Add(T entity);
         public abstract void Remove(T entity);
         public abstract IQueryable<T> AsQuery();
         public abstract T Get(Guid id);
 
-        private GraphDataContext _context;
+        private readonly GraphDataContext _context;
 
-        //TODO: public??? wtf??
+        public BaseRepository(GraphDataContext context)
+        {
+            _context = context;
+        }
+
         public GraphDataContext Context
         {
-            get { return _context ?? (_context = new GraphDataContext(ConfigRepository.ConnectionString())); }
-            set { _context = value; }
+            get { return _context; }
         }
     }
 

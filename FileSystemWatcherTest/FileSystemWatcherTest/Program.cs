@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data.Linq;
+using FileSystemWatcherTest.Old;
 using FileSystemWatcherTest.Repository;
+using FileSystemWatcherTest.Repository.Database;
 
 namespace FileSystemWatcherTest
 {
@@ -13,24 +15,15 @@ namespace FileSystemWatcherTest
 
             //GraphDataContext.Test();
 
-            var fId = Guid.NewGuid();
-            var fie = new Repository.Database.File
-            {
-                Id = fId,
-                FullName = "ololo",
-                Messages = new EntitySet<Repository.Database.Message>()
-            };
-            var lol = new LolRepo();
-            lol.Save(fie);
-          //  var dbFile = lol.Get(fId);
-           // Console.WriteLine(dbFile.FullName);
+            //  var dbFile = lol.Get(fId);
+            // Console.WriteLine(dbFile.FullName);
             //// turn into messages
-            //using (var indexer = new FilesIndexer())
-            //{
-            //    indexer.AddPaths(new [] {@"C:\Users\1\Desktop\test"});
-            //    var searcher = new FilesSearcher(indexer.GetIndexDir());
-            //    var found = searcher.Search("uid");
-            //}
+            using (var indexer = new FilesIndexer())
+            {
+                indexer.AddPaths(new[] { @"C:\Users\1\Desktop\test" });
+                var searcher = new FilesSearcher(indexer.GetIndexDir());
+                var found = searcher.Search("uid");
+            }
         }
     }
 

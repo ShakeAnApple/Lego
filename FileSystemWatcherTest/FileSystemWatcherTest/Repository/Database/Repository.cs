@@ -3,8 +3,14 @@ using System.Linq;
 
 namespace FileSystemWatcherTest.Repository.Database
 {
-    public class Repository<T> : BaseRepository<T> where T : DBEntity
+    public class Repository<T> : BaseRepository<T> where T : class, IDbEntity
     {
+        public Repository(GraphDataContext context)
+            : base(context)
+        {
+            
+        }
+
         public override void Add(T entity)
         {
             base.Context.GetTable<T>().InsertOnSubmit(entity);

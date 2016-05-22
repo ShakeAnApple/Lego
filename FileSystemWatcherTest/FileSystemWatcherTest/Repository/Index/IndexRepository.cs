@@ -19,13 +19,10 @@ namespace FileSystemWatcherTest.Repository.Index
             foreach (var message in file.Content)
             {
                 var doc = new Document();
+                doc.Add(new Field(IndexFields.Path, file.Path, Field.Store.NO, Field.Index.NO));
+
                 doc.Add(new Field(IndexFields.Id, message.Id.ToString(), Field.Store.YES, Field.Index.NO));
-                doc.Add(new Field(IndexFields.Path, file.Path, Field.Store.YES, Field.Index.NO));
-                //TODO format this doc field as datetime
-                doc.Add(new Field(IndexFields.Date, message.Timestamp.ToString(), Field.Store.YES, Field.Index.NO));
-                doc.Add(new Field(IndexFields.Status, message.Severity.ToString(), Field.Store.YES, Field.Index.ANALYZED));
                 doc.Add(new Field(IndexFields.Message, message.Body, Field.Store.YES, Field.Index.ANALYZED));
-                doc.Add(new Field(IndexFields.Thread, message.Thread.ToString(), Field.Store.YES, Field.Index.NO));
                 docs.Add(doc);
             }
             return docs;

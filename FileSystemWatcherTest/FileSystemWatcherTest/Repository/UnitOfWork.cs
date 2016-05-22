@@ -25,12 +25,9 @@ namespace FileSystemWatcherTest.Repository
             }
         }
 
-        public IRepository<T> GetRepository<T>() where T : DBEntity
+        public IRepository<T> GetRepository<T>() where T : class, IDbEntity
         {
-            return new Repository<T>
-            {
-                Context = _context
-            };
+            return new Repository<T>(_context);
         }
 
         public IIndexRepository GetIndexRepository()
@@ -67,9 +64,10 @@ namespace FileSystemWatcherTest.Repository
             //TODO think about dynamic case (dispose is greedy for time)
             if (_indexWriter != null)
             {
-                _indexWriter.Dispose();
+               _indexWriter.Dispose();
                 _context = null;
             }
         }
     }
+
 }
