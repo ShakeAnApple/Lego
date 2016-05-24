@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Linq;
-using System.Data.Linq.Mapping;
 using System.Data.SqlServerCe;
 using System.Linq;
-using System.Reflection;
 using IO = System.IO;
 
 namespace FileSystemWatcherTest.Repository.Database
@@ -68,36 +65,42 @@ namespace FileSystemWatcherTest.Repository.Database
     //    }
     //}
 
-    public class GraphDataPlainContext : DataContext
-    {
-        public Table<Message> Messages { get { return this.GetTable<Message>(); } }
-        public Table<TagType> TagTypes;
-        public Table<Tag> Tags;
-        public Table<MessageTag> MessageTags;
-        public Table<FileWithMessages> FilesWithMessages;
+    //public class GraphDataPlainContext : DataContext
+    //{
+    //    public Table<Message> Messages { get { return this.GetTable<Message>(); } }
+    //    public Table<TagType> TagTypes;
+    //    public Table<Tag> Tags;
+    //    public Table<MessageTag> MessageTags;
+    //    public Table<FileWithMessages> FilesWithMessages;
 
-        public GraphDataPlainContext(string connString) //, bool constructionTime = false)
-            : base(new SqlCeConnection(connString)) //, MakeMappingSource(constructionTime))
-        {
-        }
-    }
+    //    public GraphDataPlainContext(string connString) //, bool constructionTime = false)
+    //        : base(new SqlCeConnection(connString)) //, MakeMappingSource(constructionTime))
+    //    {
+    //    }
+    //}
 
-    public class GraphDataContext : GraphDataPlainContext
+    public class GraphDataContext : DataContext //: GraphDataPlainContext
     {
         public Table<File> Files { get { return this.GetTable<File>(); } }
+        public Table<Message> Messages { get { return this.GetTable<Message>(); } }
+        public Table<TagType> TagTypes { get { return this.GetTable<TagType>(); } }
+        public Table<Tag> Tags { get { return this.GetTable<Tag>(); } }
+        public Table<MessageTag> MessageTags { get { return this.GetTable<MessageTag>(); } }
 
         public GraphDataContext(string connString) //, bool constructionTime = false)
-            : base(connString) //, MakeMappingSource(constructionTime))
+                : base(new SqlCeConnection(connString)) //, MakeMappingSource(constructionTime))
         {
         }
+    
 
-        //private static MappingSource MakeMappingSource(bool constructionTime)
-        //{
-        //    return !constructionTime ? (MappingSource)new AttributeMappingSource()
-        //                             : new ConstructionTimeMappingSource(typeof(File));
-        //}
 
-        public static void Test()
+    //private static MappingSource MakeMappingSource(bool constructionTime)
+    //{
+    //    return !constructionTime ? (MappingSource)new AttributeMappingSource()
+    //                             : new ConstructionTimeMappingSource(typeof(File));
+    //}
+
+    public static void Test()
         {
             var fname = "MyData.sdf";
             while (IO.File.Exists(fname))
@@ -105,7 +108,7 @@ namespace FileSystemWatcherTest.Repository.Database
 
             var cnnString = "Data Source=" + fname + ";Persist Security Info=False;";
 
-            using (var cnn = new GraphDataPlainContext(cnnString))
+            using (var cnn = new GraphDataContext(cnnString))
             {
                 cnn.CreateDatabase();
             }
@@ -119,8 +122,8 @@ namespace FileSystemWatcherTest.Repository.Database
 
                 //}
                 var fileId = Guid.NewGuid();
-                var file = new FileWithMessages() { FullName = "kpk", Id = fileId, Messages = new EntitySet<Message>() };
-                cnn.FilesWithMessages.InsertOnSubmit(file);
+                var file = new File() { FullName = "kpk", Id = fileId, Messages = new EntitySet<Message>() };
+                cnn.Files.InsertOnSubmit(file);
                 for (int i = 0; i < 10; i++)
                 {
                     var messId = Guid.NewGuid();
@@ -129,7 +132,7 @@ namespace FileSystemWatcherTest.Repository.Database
 
                 cnn.SubmitChanges();
 
-                var dbFileMes = cnn.FilesWithMessages.First(f => f.Id == fileId);
+                var dbFileMes = cnn.Files.First(f => f.Id == fileId);
                 foreach (var message in dbFileMes.Messages)
                 {
                     Console.WriteLine(message.Id + " " + message.Body);

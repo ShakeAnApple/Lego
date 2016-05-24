@@ -112,8 +112,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Managers\FileManager.cs" />
+    <Compile Include="FileProcessor.cs" />
     <Compile Include="Managers\GraphManager.cs" />
+    <Compile Include="Managers\MessageManager.cs" />
+    <Compile Include="Managers\TagManager.cs" />
+    <Compile Include="MessageTagger.cs" />
     <Compile Include="Models.cs" />
     <Compile Include="Old\DirectoryHelper.cs" />
     <Compile Include="Old\FileContentPreprocessor.cs" />

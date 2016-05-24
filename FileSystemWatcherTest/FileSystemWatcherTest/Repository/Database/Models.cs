@@ -10,18 +10,18 @@ namespace FileSystemWatcherTest.Repository.Database
         Guid Id { get; set; }
     }
 
-    [Table(Name = "Files")]
+    //[Table(Name = "Files")]
+    //public class File : IDbEntity
+    //{
+    //    [Column(IsPrimaryKey = true)]
+    //    public Guid Id { get; set; }
+
+    //    [Column(CanBeNull = false)]
+    //    public string FullName { get; set; }
+    //}
+
+    [Table]
     public class File : IDbEntity
-    {
-        [Column(IsPrimaryKey = true)]
-        public Guid Id { get; set; }
-
-        [Column(CanBeNull = false)]
-        public string FullName { get; set; }
-    }
-
-    [Table(Name = "Files")]
-    public class FileWithMessages : IDbEntity
     {
         [Column(IsPrimaryKey = true)]
         public Guid Id { get; set; }

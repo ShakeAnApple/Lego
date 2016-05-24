@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text.RegularExpressions;
 
 namespace FileSystemWatcherTest
@@ -14,8 +15,6 @@ namespace FileSystemWatcherTest
             this.Id = id;
             this.FullName = fullName;
         }
-
-        public List<Message> Messages { get; set; }
     }
 
     public class Message

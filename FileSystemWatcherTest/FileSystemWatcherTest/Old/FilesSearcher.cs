@@ -48,12 +48,11 @@ namespace FileSystemWatcherTest.Old
                 var matchDoc = _indexSearcher.Doc(doc.Doc);
                 var fieldText = matchDoc.Get(IndexFields.Message);
                 var stream = analyzer.TokenStream("", new StringReader(fieldText));
-                // var fragments = highlighter.GetBestTextFragments(stream, fieldText, true, hits.TotalHits - result.Count);
                 var fragments = this.GetFieldTextFragments(stream, fieldText, query).ToArray();
                 allMatches.AddRange(fragments);
                 foreach (var textFragment in fragments)
                 {
-                    var match = textFragment.Item2; // fieldText.Substring(textFragment.TextStartPos, fieldText.Length - textFragment.TextEndPos);
+                    var match = textFragment.Item2; 
                     result.Add(new Match(matchDoc.Get(IndexFields.Path), match));
                 }
             }
@@ -62,12 +61,13 @@ namespace FileSystemWatcherTest.Old
 
         private IEnumerable<Tuple<int, string, float>> GetFieldTextFragments(TokenStream tokenStream, string text, Query query)
         {
-            ITermAttribute termAttribute = tokenStream.AddAttribute<ITermAttribute>();
-            IOffsetAttribute offsetAttribute = tokenStream.AddAttribute<IOffsetAttribute>();
+            var termAttribute = tokenStream.AddAttribute<ITermAttribute>();
+            var offsetAttribute = tokenStream.AddAttribute<IOffsetAttribute>();
+
             tokenStream.AddAttribute<IPositionIncrementAttribute>();
             tokenStream.Reset();
 
-            WeightedSpanTermExtractor spanTermExtractor = new WeightedSpanTermExtractor();
+            var spanTermExtractor = new WeightedSpanTermExtractor();
             spanTermExtractor.ExpandMultiTermQuery = true; // ? 
             spanTermExtractor.SetWrapIfNotCachingTokenFilter(true); // ?
             var fieldWeightedSpanTerms = spanTermExtractor.GetWeightedSpanTerms(query, tokenStream, null);
