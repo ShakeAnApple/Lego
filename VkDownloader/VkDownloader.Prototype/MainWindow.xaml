@@ -17,13 +17,33 @@
                 <MenuItem Header="Exit"></MenuItem>
             </MenuItem>
         </Menu>
+        <ToolBar DockPanel.Dock="top">
+            <Button>Get audios</Button>
+            <Button>Download checked</Button>
+        </ToolBar>
         <StatusBar DockPanel.Dock="Bottom">
-            <StatusBarItem></StatusBarItem>        
+            <TextBlock Text="{Binding ElementName=pbStatus, Path=Value, StringFormat={}{0:0}%}" 
+                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <StatusBarItem HorizontalContentAlignment="Stretch">
+                <ProgressBar Name="pbStatus" Value="100" Height="18" />
+            </StatusBarItem>
         </StatusBar>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <ListView Name="audioListView" ItemsSource="{Binding audios}">
+            <ListView Name="audioListView" ItemsSource="{Binding audios}" >
                 <ListView.View>
                     <GridView>
+                        <GridViewColumn>
+                            <GridViewColumn.Header>
+                                <CheckBox Name="checkAll"></CheckBox>
+                            </GridViewColumn.Header>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                                                       AncestorType={x:Type ListViewItem}}, 
+                                                                  Path=IsSelected}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=Artist}">Artist</GridViewColumn>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=Title}">Title</GridViewColumn>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=Length}">Length</GridViewColumn>
@@ -31,7 +51,16 @@
                         <GridViewColumn DisplayMemberBinding="{Binding Path=UploadedDate}">Uploaded Date</GridViewColumn>
                     </GridView>
                 </ListView.View>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="ToolTip">
+                            <Setter.Value>
+                                <ToolTip Content="{Binding Path=FilePath}" />
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
             </ListView>
-        </ScrollViewer>        
+        </ScrollViewer>
     </DockPanel>
 </Window>

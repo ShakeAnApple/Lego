@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace VkDownloader.Prototype
 {
@@ -14,21 +15,24 @@ namespace VkDownloader.Prototype
                     Title = "Title1",
                     Length = 1,
                     AddedDate = DateTime.Now,
-                    UploadedDate = DateTime.UtcNow
+                    UploadedDate = DateTime.UtcNow,
+                    FilePath = Directory.GetCurrentDirectory()
                 },
                 new AudioEntry {
                     Artist = "Artist2",
                     Title = "Title2",
                     Length = 2,
                     AddedDate = DateTime.Now,
-                    UploadedDate = DateTime.UtcNow
+                    UploadedDate = DateTime.UtcNow,
+                    FilePath = Directory.GetCurrentDirectory()
                 },
                 new AudioEntry {
                     Artist = "Artist3",
                     Title = "Title3",
                     Length = 3,
                     AddedDate = DateTime.Now,
-                    UploadedDate = DateTime.UtcNow
+                    UploadedDate = DateTime.UtcNow,
+                    FilePath = Directory.GetCurrentDirectory()
                 },
             };
         }
