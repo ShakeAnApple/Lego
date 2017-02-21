@@ -19,6 +19,7 @@
         </Menu>
         <ToolBar DockPanel.Dock="top">
             <Button>Get audios</Button>
+            <Button Command="{Binding AudioList.ShowDownloadedCommand}">Show downloaded</Button>
             <Button>Download checked</Button>
         </ToolBar>
         <StatusBar DockPanel.Dock="Bottom">
@@ -29,18 +30,16 @@
             </StatusBarItem>
         </StatusBar>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <ListView Name="audioListView" ItemsSource="{Binding audios}" >
+            <ListView ItemsSource="{Binding AudioList.Items}" >
                 <ListView.View>
                     <GridView>
                         <GridViewColumn>
                             <GridViewColumn.Header>
-                                <CheckBox Name="checkAll"></CheckBox>
+                                <CheckBox IsChecked="{Binding AudioList.AllChecked}" />
                             </GridViewColumn.Header>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <CheckBox IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, 
-                                                                       AncestorType={x:Type ListViewItem}}, 
-                                                                  Path=IsSelected}" />
+                                    <CheckBox IsChecked="{Binding Path=IsChecked}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

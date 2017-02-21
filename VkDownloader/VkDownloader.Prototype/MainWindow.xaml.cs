@@ -21,16 +21,11 @@ namespace VkDownloader.Prototype
     /// </summary>
     public partial class MainWindow : Window
     {
-        public List<AudioEntry> audios { get; private set; }
-        private readonly IAudioEntryRepository _audioEntryRepostory;
-
+        
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = this;
-
-            _audioEntryRepostory = new AudioEntryRepositoryMock();
-            audios = _audioEntryRepostory.List();
+            DataContext = new ApplicationViewModel();
         }
     }
 }
