@@ -57,9 +57,12 @@
     </ApplicationDefinition>
     <Compile Include="AudioEntryRepositoryMock.cs" />
     <Compile Include="DelegateCommand.cs" />
-    <Compile Include="Models.cs" />
+    <Compile Include="Models\Models.cs" />
     <Compile Include="Interfaces.cs" />
-    <Compile Include="ViewModels.cs" />
+    <Compile Include="ViewModels\ApplicationViewModel.cs" />
+    <Compile Include="ViewModels\AudioEntryViewModel.cs" />
+    <Compile Include="ViewModels\AudioListViewModel.cs" />
+    <Compile Include="ViewModels\BaseNotifiableViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
