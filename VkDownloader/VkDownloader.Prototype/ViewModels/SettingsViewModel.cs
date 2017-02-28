@@ -14,6 +14,7 @@ namespace VkDownloader.Prototype.ViewModels
         public SettingsViewModel()
         {
             _settingsRepository = new SettingsRepositoryMock();
+            _settings = new Settings();
             //_settings = _settingsRepository.Get();
         }
 

@@ -50,19 +50,19 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    
+
                     <GroupBox Grid.Row="0" Header="Custom Settings file">
                         <StackPanel>
-                        <Label Target="{Binding ElementName=TemporarySettingsFilePath}">_Load Settings From:</Label>
-                        <DockPanel LastChildFill="True">
-                            <Button DockPanel.Dock="Right">Load</Button>
-                            <Button DockPanel.Dock="Right">Browse...</Button>
-                            <TextBox Name="TemporarySettingsFilePath"></TextBox>
-                        </DockPanel>
+                            <Label Target="{Binding ElementName=TemporarySettingsFilePath}">_Load Settings From:</Label>
+                            <DockPanel LastChildFill="True">
+                                <Button DockPanel.Dock="Right">Load</Button>
+                                <Button DockPanel.Dock="Right">Browse...</Button>
+                                <TextBox Name="TemporarySettingsFilePath"></TextBox>
+                            </DockPanel>
                             <Button>Get back to default</Button>
                         </StackPanel>
                     </GroupBox>
-                    
+
                     <StackPanel Grid.Row="1">
                         <Label Target="{Binding ElementName=DefaultSettingsPathTextBox}">_Default Settings File Path:</Label>
                         <DockPanel LastChildFill="True">

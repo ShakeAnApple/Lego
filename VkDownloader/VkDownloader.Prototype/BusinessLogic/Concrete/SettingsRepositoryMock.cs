@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using VkDownloader.Prototype.BusinessLogic.Abstract;
 using VkDownloader.Prototype.BusinessLogic.Model;
@@ -10,12 +9,13 @@ namespace VkDownloader.Prototype.BusinessLogic.Concrete
     {
         public Settings Get(string path)
         {
-            return new Settings
-            {
-                AccountId = "id199989126",
-                DefaultDownloadPath = Directory.GetCurrentDirectory(),
-                ScanningArea = ScanningArea.Audios
-            };
+            return null;
+            //return new Settings
+            //{
+            //    AccountId = "id199989126",
+            //    DefaultDownloadPath = Directory.GetCurrentDirectory(),
+            //    ScanningArea = ScanningArea.Audios
+            //};
         }
 
         public void Save(Settings settings, string path)

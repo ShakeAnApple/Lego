@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using VkDownloader.Prototype;
 using VkDownloader.Prototype.BusinessLogic.Abstract;
+using VkDownloader.Prototype.BusinessLogic.Concrete;
 using VkDownloader.Prototype.ViewModels;
 
 namespace VkDownloader.Prototype.Views
@@ -28,6 +29,8 @@ namespace VkDownloader.Prototype.Views
         
         public MainWindow()
         {
+            _settingsService = new SettingsService();
+
             OnStartUp();
             InitializeComponent();
             DataContext = new ApplicationViewModel();
@@ -42,6 +45,7 @@ namespace VkDownloader.Prototype.Views
             catch (ApplicationException ex)
             {
                 // TODO open settings dialog with warning message and Cancel button disabled
+                SettingsWindow.ShowSettingsDialog();
             }
         }
     }

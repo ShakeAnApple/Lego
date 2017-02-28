@@ -12,12 +12,12 @@ namespace VkDownloader.Prototype.BusinessLogic.Concrete
         public SettingsService()
         {
             // TODO
-            // _settingsRepository = new ...
-            // _appConfigRepository = new ...
+            _settingsRepository = new SettingsRepositoryMock();
+            _appConfigRepository = new ApplicationConfigurationRepository();
         }
 
         public void InitializeContext()
-        {
+        {   
             var defaultSettingsPath = _appConfigRepository.GetDefaultSettingsPath();
             var settings = _settingsRepository.Get(defaultSettingsPath);
             if (settings == null)
