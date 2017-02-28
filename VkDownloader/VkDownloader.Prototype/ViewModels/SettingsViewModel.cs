@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using VkDownloader.Prototype.BusinessLogic.Abstract;
+using VkDownloader.Prototype.BusinessLogic.Concrete;
+using VkDownloader.Prototype.BusinessLogic.Model;
 
 namespace VkDownloader.Prototype.ViewModels
 {
@@ -15,7 +14,7 @@ namespace VkDownloader.Prototype.ViewModels
         public SettingsViewModel()
         {
             _settingsRepository = new SettingsRepositoryMock();
-            _settings = _settingsRepository.Get();
+            //_settings = _settingsRepository.Get();
         }
 
         #region properties
@@ -49,7 +48,7 @@ namespace VkDownloader.Prototype.ViewModels
 
         public void Save()
         {
-            _settingsRepository.Save();
+            throw new NotImplementedException();
         }
 
     }

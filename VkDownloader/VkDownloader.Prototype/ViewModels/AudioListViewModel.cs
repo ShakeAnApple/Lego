@@ -1,5 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
+using VkDownloader.Prototype.BusinessLogic.Abstract;
+using VkDownloader.Prototype.BusinessLogic.Concrete;
 
 namespace VkDownloader.Prototype.ViewModels
 {

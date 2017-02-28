@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using VkDownloader.Prototype.BusinessLogic.Abstract;
+using VkDownloader.Prototype.BusinessLogic.Model;
 
-namespace VkDownloader.Prototype
+namespace VkDownloader.Prototype.BusinessLogic.Concrete
 {
     public class SettingsRepositoryMock : ISettingsRepository
     {
-        public Settings Get()
+        public Settings Get(string path)
         {
             return new Settings
             {
@@ -19,7 +18,7 @@ namespace VkDownloader.Prototype
             };
         }
 
-        public void Save()
+        public void Save(Settings settings, string path)
         {
             throw new NotImplementedException();
         }

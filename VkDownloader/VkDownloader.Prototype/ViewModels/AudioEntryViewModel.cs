@@ -1,4 +1,5 @@
 ﻿using System;
+using VkDownloader.Prototype.BusinessLogic.Model;
 
 namespace VkDownloader.Prototype.ViewModels
 {

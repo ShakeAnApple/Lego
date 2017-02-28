@@ -12,14 +12,15 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+        
         <StackPanel Grid.Row="0">
             <GroupBox Header="Vk">
                 <StackPanel>
-                    <Label Grid.Column="0" Grid.Row="0">_Account Id:</Label>
-                    <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding SomeText}"></TextBox>
-                    <Label Grid.Column="0" Grid.Row="1">_Scanning Area:</Label>
+                    <Label Target="{Binding ElementName=AccountIdTextBox}">_Account Id:</Label>
+                    <TextBox Name="AccountIdTextBox" Text="{Binding SomeText}"></TextBox>
+                    <Label Target="{Binding ElementName=ScanningAreaRadioButton}">_Scanning Area:</Label>
                     <StackPanel Grid.Column="1" Grid.Row="1">
-                        <RadioButton GroupName="ScanningArea">Audio</RadioButton>
+                        <RadioButton Name="ScanningAreaRadioButton" GroupName="ScanningArea">Audio</RadioButton>
                         <RadioButton GroupName="ScanningArea">Wall</RadioButton>
                         <RadioButton GroupName="ScanningArea">Audio &amp; Wall</RadioButton>
                     </StackPanel>
@@ -28,10 +29,10 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1">
-            <Label>_Default Download Path:</Label>
+            <Label Target="{Binding ElementName=PathTextBox}">_Default Download Path:</Label>
             <DockPanel LastChildFill="True">
                 <Button DockPanel.Dock="Right">Browse...</Button>
-                <TextBox></TextBox>
+                <TextBox Name="PathTextBox"></TextBox>
             </DockPanel>
         </StackPanel>
 

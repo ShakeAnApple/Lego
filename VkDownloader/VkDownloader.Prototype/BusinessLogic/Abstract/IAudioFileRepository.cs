@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using VkDownloader.Prototype.BusinessLogic.Model;
 
-
-namespace VkDownloader.Prototype
+namespace VkDownloader.Prototype.BusinessLogic.Abstract
 {
     //я наеврное с областями поиска сооружу
     //и типа оно сканит
@@ -16,31 +13,4 @@ namespace VkDownloader.Prototype
         void Save(AudioFile file);
         //void Get();    
     }
-
-    public interface IAudioEntryRepository
-    {
-        List<AudioEntry> List();
-        //void Clear();
-        //void Delete();
-    }
-
-    public interface IVkAudioService
-    {
-        void ListAll();
-        void ListUnloaded();
-        //void Download();
-    }
-
-    public interface IVkAccountService
-    {
-        //void Login();
-    }
-
-
-    public interface ISettingsRepository
-    {
-        Settings Get();
-        void Save();
-    }
-    
 }

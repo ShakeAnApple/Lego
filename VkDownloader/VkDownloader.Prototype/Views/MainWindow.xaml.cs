@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VkDownloader.Prototype;
+using VkDownloader.Prototype.BusinessLogic.Abstract;
 using VkDownloader.Prototype.ViewModels;
 
 namespace VkDownloader.Prototype.Views
@@ -22,11 +24,25 @@ namespace VkDownloader.Prototype.Views
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly ISettingsService _settingsService;
         
         public MainWindow()
         {
+            OnStartUp();
             InitializeComponent();
             DataContext = new ApplicationViewModel();
+        }
+
+        private void OnStartUp()
+        {
+            try
+            {
+                _settingsService.InitializeContext();
+            }
+            catch (ApplicationException ex)
+            {
+                // TODO open settings dialog with warning message and Cancel button disabled
+            }
         }
     }
 }

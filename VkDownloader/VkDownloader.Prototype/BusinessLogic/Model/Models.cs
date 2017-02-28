@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace VkDownloader.Prototype
+namespace VkDownloader.Prototype.BusinessLogic.Model
 {
     public class AudioBase
     {
@@ -22,25 +22,6 @@ namespace VkDownloader.Prototype
         public int Length { get; set; }
         public DateTime UploadedDate { get; set; }
         public DateTime AddedDate { get; set; }
-    }
-
-    public class Context
-    {
-        private static Context _context;
-
-        public static Context Current
-        {
-            get
-            {
-                if (_context == null)
-                {
-                    _context = new Context();
-                }
-                return _context;
-            }
-        }
-
-        public Settings Settings { get; set; }
     }
 
     public class Settings

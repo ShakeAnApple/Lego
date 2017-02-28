@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using VkDownloader.Prototype.Views;
 
 namespace VkDownloader.Prototype.ViewModels

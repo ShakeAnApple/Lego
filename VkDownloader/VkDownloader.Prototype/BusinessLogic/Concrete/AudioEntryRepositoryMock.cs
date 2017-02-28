@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using VkDownloader.Prototype.BusinessLogic.Abstract;
+using VkDownloader.Prototype.BusinessLogic.Model;
 
-namespace VkDownloader.Prototype
+namespace VkDownloader.Prototype.BusinessLogic.Concrete
 {
     public class AudioEntryRepositoryMock : IAudioEntryRepository
     {
