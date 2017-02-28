@@ -8,35 +8,80 @@
         Title="SettingsWindow" Height="300" Width="300">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        
-        <StackPanel Grid.Row="0">
-            <GroupBox Header="Vk">
-                <StackPanel>
-                    <Label Target="{Binding ElementName=AccountIdTextBox}">_Account Id:</Label>
-                    <TextBox Name="AccountIdTextBox" Text="{Binding SomeText}"></TextBox>
-                    <Label Target="{Binding ElementName=ScanningAreaRadioButton}">_Scanning Area:</Label>
-                    <StackPanel Grid.Column="1" Grid.Row="1">
-                        <RadioButton Name="ScanningAreaRadioButton" GroupName="ScanningArea">Audio</RadioButton>
-                        <RadioButton GroupName="ScanningArea">Wall</RadioButton>
-                        <RadioButton GroupName="ScanningArea">Audio &amp; Wall</RadioButton>
+        <TabControl Grid.Row="0">
+            <TabItem Header="General">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0">
+                        <GroupBox Header="Vk">
+                            <StackPanel>
+                                <Label Target="{Binding ElementName=AccountIdTextBox}">_Account Id:</Label>
+                                <TextBox Name="AccountIdTextBox" Text="{Binding SomeText}"></TextBox>
+                                <Label Target="{Binding ElementName=ScanningAreaRadioButton}">_Scanning Area:</Label>
+                                <StackPanel Grid.Column="1" Grid.Row="1">
+                                    <RadioButton Name="ScanningAreaRadioButton" GroupName="ScanningArea">Audio</RadioButton>
+                                    <RadioButton GroupName="ScanningArea">Wall</RadioButton>
+                                    <RadioButton GroupName="ScanningArea">Audio &amp; Wall</RadioButton>
+                                </StackPanel>
+                            </StackPanel>
+                        </GroupBox>
                     </StackPanel>
-                </StackPanel>
-            </GroupBox>
-        </StackPanel>
 
-        <StackPanel Grid.Row="1">
-            <Label Target="{Binding ElementName=PathTextBox}">_Default Download Path:</Label>
-            <DockPanel LastChildFill="True">
-                <Button DockPanel.Dock="Right">Browse...</Button>
-                <TextBox Name="PathTextBox"></TextBox>
-            </DockPanel>
-        </StackPanel>
+                    <StackPanel Grid.Row="1">
+                        <Label Target="{Binding ElementName=PathTextBox}">_Default Download Path:</Label>
+                        <DockPanel LastChildFill="True">
+                            <Button DockPanel.Dock="Right">Browse...</Button>
+                            <TextBox Name="PathTextBox"></TextBox>
+                        </DockPanel>
+                    </StackPanel>
 
-        <Button Grid.Row="2">OK</Button>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Settings">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    
+                    <GroupBox Grid.Row="0" Header="Custom Settings file">
+                        <StackPanel>
+                        <Label Target="{Binding ElementName=TemporarySettingsFilePath}">_Load Settings From:</Label>
+                        <DockPanel LastChildFill="True">
+                            <Button DockPanel.Dock="Right">Load</Button>
+                            <Button DockPanel.Dock="Right">Browse...</Button>
+                            <TextBox Name="TemporarySettingsFilePath"></TextBox>
+                        </DockPanel>
+                            <Button>Get back to default</Button>
+                        </StackPanel>
+                    </GroupBox>
+                    
+                    <StackPanel Grid.Row="1">
+                        <Label Target="{Binding ElementName=DefaultSettingsPathTextBox}">_Default Settings File Path:</Label>
+                        <DockPanel LastChildFill="True">
+                            <Button DockPanel.Dock="Right">Browse...</Button>
+                            <TextBox Name="DefaultSettingsPathTextBox"></TextBox>
+                        </DockPanel>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1">OK</Button>
+            <Button Grid.Column="2">Cancel</Button>
+        </Grid>
     </Grid>
-    
 </Window>
