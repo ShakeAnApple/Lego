@@ -15,7 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using VkDownloader.Prototype.ViewModels;
 
-namespace VkDownloader.Prototype
+namespace VkDownloader.Prototype.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

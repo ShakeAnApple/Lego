@@ -36,26 +36,11 @@ namespace VkDownloader.Prototype
         //void Login();
     }
 
-    public class Context
+
+    public interface ISettingsRepository
     {
-        private static Context _context;
-
-        public static Context Current
-        {
-            get
-            {
-                if (_context == null)
-                {
-                    _context = new Context();
-                }
-                return _context;
-            }
-        }
-
-        public string AccountId { get; set; }
-        public ScanningArea ScanningArea { get; set; }
-        public string DefaultDownloadPath { get; set; }
+        Settings Get();
+        void Save();
     }
-
     
 }

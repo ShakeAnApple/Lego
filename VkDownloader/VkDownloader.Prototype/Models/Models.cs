@@ -24,10 +24,37 @@ namespace VkDownloader.Prototype
         public DateTime AddedDate { get; set; }
     }
 
+    public class Context
+    {
+        private static Context _context;
+
+        public static Context Current
+        {
+            get
+            {
+                if (_context == null)
+                {
+                    _context = new Context();
+                }
+                return _context;
+            }
+        }
+
+        public Settings Settings { get; set; }
+    }
+
+    public class Settings
+    {
+        public string AccountId { get; set; }
+        public ScanningArea ScanningArea { get; set; }
+        public string DefaultDownloadPath { get; set; }
+    }
+
     public enum ScanningArea
     {
         None = 0,
         Audios,
-        Wall
+        Wall,
+        All
     }
 }

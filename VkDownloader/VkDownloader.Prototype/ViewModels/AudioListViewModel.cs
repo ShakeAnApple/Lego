@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace VkDownloader.Prototype.ViewModels
 {
@@ -19,6 +20,8 @@ namespace VkDownloader.Prototype.ViewModels
             }
         }
 
+        public ICommand ShowDownloadedCommand { get; private set; }
+
         public AudioListViewModel()
         {
             _audioEntryRepostory = new AudioEntryRepositoryMock();
@@ -26,8 +29,6 @@ namespace VkDownloader.Prototype.ViewModels
 
             ShowDownloadedCommand = new DelegateCommand(obj => ShowDownloaded());
         }
-
-        public DelegateCommand ShowDownloadedCommand { get; private set; }
 
         public void SetAllChecked(bool value)
         {
