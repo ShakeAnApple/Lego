@@ -1,5 +1,6 @@
 ﻿namespace VkDownloader.Prototype.BusinessLogic.Abstract
 {
+    // VK service
     public interface IVkAudioService
     {
         void ListAll();

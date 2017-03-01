@@ -2,6 +2,7 @@
 
 namespace VkDownloader.Prototype.BusinessLogic.Abstract
 {
+    // BL
     public interface ISettingsService
     {
         Settings Get(string path);

@@ -2,6 +2,8 @@
 
 namespace VkDownloader.Prototype.BusinessLogic.Abstract
 {
+    //BL
+
     // setting are stored in file. 
     // 1. possible to load settings from default file location or from another place in FS. 
     // 1.1 if the user loads settings from another place, all changes to settings are applyed to the chosen file
