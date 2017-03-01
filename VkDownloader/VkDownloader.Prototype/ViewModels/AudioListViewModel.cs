@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using VkDownloader.Prototype.BusinessLogic.Abstract;
 using VkDownloader.Prototype.BusinessLogic.Concrete;
@@ -7,9 +8,23 @@ namespace VkDownloader.Prototype.ViewModels
 {
     public class AudioListViewModel : BaseNotifiableViewModel
     {
-        private readonly IAudioEntryRepository _audioEntryRepostory;
+        private readonly IAudioService _audioService;
 
         public ObservableCollection<AudioEntryViewModel> Items { get; set; }
+
+        public ICommand GetCommand { get; private set; }
+        public ICommand DownloadCheckedCommand { get; private set; }
+        public ICommand ShowDownloadedCommand { get; private set; }
+
+        public AudioListViewModel()
+        {
+            _audioService = new AudioService();
+            Items = new ObservableCollection<AudioEntryViewModel>();
+
+            GetCommand = new DelegateCommand(obj => Get());
+            DownloadCheckedCommand = new DelegateCommand(obj => DownloadChecked());
+            ShowDownloadedCommand = new DelegateCommand(obj => ShowDownloaded());
+        }
 
         private bool _allChecked;
         public bool AllChecked
@@ -21,30 +36,37 @@ namespace VkDownloader.Prototype.ViewModels
                 this.SetAllChecked(value);
             }
         }
-
-        public ICommand ShowDownloadedCommand { get; private set; }
-
-        public AudioListViewModel()
+        
+        public void ShowDownloaded()
         {
-            _audioEntryRepostory = new AudioEntryRepositoryMock();
-            Items = new ObservableCollection<AudioEntryViewModel>();
+            Items.Clear();
 
-            ShowDownloadedCommand = new DelegateCommand(obj => ShowDownloaded());
+            _audioService
+                .ListDownloaded()
+                .ForEach(a => Items.Add(new AudioEntryViewModel(this, a)));
+        }
+
+        private void DownloadChecked()
+        {
+            var checkedTracks = Items.Where(item => item.IsChecked)
+                .Select(item => item.Id)
+                .ToList();
+            _audioService.Download(checkedTracks);
+        }
+
+        private void Get()
+        {
+            Items.Clear();
+
+            _audioService
+                .Get()
+                .ForEach(a => Items.Add(new AudioEntryViewModel(this, a)));
         }
 
         public void SetAllChecked(bool value)
         {
             _allChecked = value;
             base.OnPropertyChanged("AllChecked");
-        }
-
-        public void ShowDownloaded()
-        {
-            Items.Clear();
-
-            _audioEntryRepostory
-                .List()
-                .ForEach(a => Items.Add(new AudioEntryViewModel(this, a)));
         }
 
         private void CheckAll(bool value)

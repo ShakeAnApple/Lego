@@ -57,6 +57,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BusinessLogic\Abstract\IAudioService.cs" />
     <Compile Include="BusinessLogic\Concrete\ApplicationConfigurationRepositoryMock.cs" />
     <Compile Include="BusinessLogic\Concrete\AudioEntryRepositoryMock.cs" />
     <Compile Include="BusinessLogic\Abstract\IApplicationConfigurationRepository.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="BusinessLogic\Abstract\ISettingsRepository.cs" />
     <Compile Include="BusinessLogic\Abstract\ISettingsService.cs" />
     <Compile Include="BusinessLogic\Abstract\VkInterfaces.cs" />
+    <Compile Include="BusinessLogic\Concrete\AudioService.cs" />
     <Compile Include="BusinessLogic\Concrete\SettingsService.cs" />
     <Compile Include="BusinessLogic\Model\IContext.cs" />
     <Compile Include="DelegateCommand.cs" />

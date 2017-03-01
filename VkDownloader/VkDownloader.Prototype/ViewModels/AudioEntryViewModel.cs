@@ -5,10 +5,10 @@ namespace VkDownloader.Prototype.ViewModels
 {
     public class AudioEntryViewModel : BaseNotifiableViewModel
     {
-        readonly AudioEntry _audio;
+        readonly AudioEntryBL _audio;
         readonly AudioListViewModel _owner;
 
-        public AudioEntryViewModel(AudioListViewModel owner, AudioEntry audio)
+        public AudioEntryViewModel(AudioListViewModel owner, AudioEntryBL audio)
         {
             _audio = audio;
             _owner = owner;
@@ -36,6 +36,10 @@ namespace VkDownloader.Prototype.ViewModels
         {
             get { return _audio.Title; }
             set { _audio.Title = value; }
+        }
+        public Guid Id
+        {
+            get { return _audio.Id; }
         }
         public int Length
         {

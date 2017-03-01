@@ -24,6 +24,16 @@ namespace VkDownloader.Prototype.BusinessLogic.Model
         public DateTime AddedDate { get; set; }
     }
 
+    public class AudioEntryBL : AudioBase
+    {
+        public string Artist { get; set; }
+        public string Title { get; set; }
+        public int Length { get; set; }
+        public DateTime UploadedDate { get; set; }
+        public DateTime AddedDate { get; set; }
+        public bool isPathCorrect { get; set; }
+    }
+
     public class Settings
     {
         public string AccountId { get; set; }
@@ -35,6 +45,12 @@ namespace VkDownloader.Prototype.BusinessLogic.Model
     {
         public string DefaultSettingsFilePath { get; set; }
         public string TempSettingsFilePath { get; set; }
+    }
+
+    public class Period
+    {
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
     }
 
     public enum ScanningArea
