@@ -12,7 +12,7 @@ namespace VkDownloader.Prototype.BusinessLogic.Concrete
             throw new NotImplementedException();
         }
 
-        public void Download(List<AudioEntryBL> audios)
+        public void Download(List<Guid> audios)
         {
             throw new NotImplementedException();
         }

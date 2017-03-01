@@ -8,6 +8,26 @@ namespace VkDownloader.Prototype.BusinessLogic.Concrete
 {
     public class AudioEntryRepositoryMock : IAudioEntryRepository
     {
+        public void Delete(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<AudioEntry> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<AudioEntry> GetByPath(string path)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<AudioEntry> List()
         {
             return new List<AudioEntry>
