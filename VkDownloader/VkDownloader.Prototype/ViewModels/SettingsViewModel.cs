@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Windows.Input;
 using VkDownloader.Prototype.BusinessLogic.Abstract;
 using VkDownloader.Prototype.BusinessLogic.Concrete;
 using VkDownloader.Prototype.BusinessLogic.Model;
@@ -7,50 +7,105 @@ namespace VkDownloader.Prototype.ViewModels
 {
     public class SettingsViewModel : BaseNotifiableViewModel
     {
-        private readonly ISettingsRepository _settingsRepository;
+        private readonly ISettingsService _settingsService;
+        // TODO nya?
+        private readonly SettingsController _owner;
 
-        private readonly Settings _settings;
+        public Settings Settings { get; private set; }
+        public ConfigurationSettings ConfigSettings { get; private set; }
+
+        public ICommand LoadTempSettingsCommand { get; private set; }
+        public ICommand SetDefaultSettingsCommand { get; private set; }
 
         public SettingsViewModel()
         {
-            _settingsRepository = new SettingsRepositoryMock();
-            _settings = new Settings();
-            //_settings = _settingsRepository.Get();
+            _settingsService = new SettingsService();
+
+            Settings = _settingsService.GetCurrent();
+            ConfigSettings = _settingsService.GetConfigurationSettings();
+
+            LoadTempSettingsCommand = new DelegateCommand(o => LoadTempSettings());
+            SetDefaultSettingsCommand = new DelegateCommand(o => SetDefaultSettings());
         }
 
-        #region properties
+        #region bl settings
         public string AccountId
         {
-            get { return _settings.AccountId; }
-            set {
-                _settings.AccountId = value;
+            get { return Settings.AccountId; }
+            set
+            {
+                Settings.AccountId = value;
                 OnPropertyChanged("AccountId");
             }
         }
         public ScanningArea ScanningArea
         {
-            get { return _settings.ScanningArea; }
+            get { return Settings.ScanningArea; }
             set
             {
-                _settings.ScanningArea = value;
+                Settings.ScanningArea = value;
                 OnPropertyChanged("ScanningArea");
             }
         }
         public string DefaultDownloadPath
         {
-            get { return _settings.DefaultDownloadPath; }
+            get { return Settings.DefaultDownloadPath; }
             set
             {
-                _settings.DefaultDownloadPath = value;
+                Settings.DefaultDownloadPath = value;
                 OnPropertyChanged("DefaultDownloadPath");
             }
         }
         #endregion
 
-        public void Save()
+        #region app settings
+        public string DefaultSettingsFilePath
         {
-            throw new NotImplementedException();
+            get { return ConfigSettings.DefaultSettingsFilePath; }
+            set
+            {
+                ConfigSettings.DefaultSettingsFilePath = value;
+                OnPropertyChanged("DefaultSettingsFilePath");
+            }
         }
 
+        public string TempSettingsFilePath
+        {
+            get { return ConfigSettings.TempSettingsFilePath; }
+            set
+            {
+                ConfigSettings.TempSettingsFilePath = value;
+                OnPropertyChanged("TempSettingsFilePath");
+            }
+        }
+        #endregion
+
+        private void LoadTempSettings()
+        {
+            if (string.IsNullOrEmpty(ConfigSettings.TempSettingsFilePath))
+            {
+                return;
+            }
+
+            var tempSettings = _settingsService.Get(ConfigSettings.TempSettingsFilePath);
+            UpdateSettingsView(tempSettings);
+        }
+
+        private void SetDefaultSettings()
+        {
+            var settings = _settingsService.GetDefault();
+            var configurationSettings = _settingsService.GetConfigurationSettings();
+
+            UpdateSettingsView(settings);
+            ConfigSettings.TempSettingsFilePath = configurationSettings.TempSettingsFilePath;
+            ConfigSettings.DefaultSettingsFilePath = configurationSettings.DefaultSettingsFilePath;
+        }
+
+        private void UpdateSettingsView(Settings settings)
+        {
+            Settings.AccountId = settings.AccountId;
+            Settings.DefaultDownloadPath = settings.DefaultDownloadPath;
+            Settings.ScanningArea = settings.ScanningArea;
+        }
     }
 }

@@ -7,21 +7,24 @@ namespace VkDownloader.Prototype.ViewModels
     {
         public AudioListViewModel AudioList { get; private set; }
 
-        public ICommand ShowSettingsWindowCommand { get; private set; }
+        public ICommand EditSettingsCommand { get; private set; }
 
         public ApplicationViewModel()
         {
             AudioList = new AudioListViewModel();
 
-            ShowSettingsWindowCommand = new DelegateCommand(obj => ShowSettingsWindow());
+            EditSettingsCommand = new DelegateCommand(obj => EditSettings());
         }
                
 
-        private void ShowSettingsWindow()
+        private void EditSettings()
         {
-            if (SettingsWindow.ShowSettingsDialog().Value)
+            var settingsController = new SettingsController();
+
+            var result = SettingsWindow.ShowSettingsDialog(settingsController.SettingsViewModel);
+            if (result)
             {
-                //context.applyNewSettings
+                settingsController.Apply();
             }
         }
     }    

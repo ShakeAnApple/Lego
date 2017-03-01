@@ -26,7 +26,7 @@
         }
 
         public Settings Settings { get; private set; }
-        public string TemporarySettingsPath { get; private set; }
+        public string TemporarySettingsPath { get; set; }
 
         public void Update(Settings settings)
         {

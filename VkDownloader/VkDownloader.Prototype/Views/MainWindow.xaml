@@ -11,10 +11,10 @@
             <MenuItem Header="File">
                 <MenuItem Header="New"></MenuItem>
                 <MenuItem Header="Open"></MenuItem>
-                <MenuItem Header="Settings"></MenuItem>
+                <MenuItem Header="Settings" Command="{Binding EditSettingsCommand}"></MenuItem>
                 <MenuItem Header="Save Configuration"></MenuItem>
                 <Separator></Separator>
-                <MenuItem Command="{Binding CloseCommand}" Header="Exit"></MenuItem>
+                <MenuItem Name="Exit" Click="btnExit_Click" Header="Exit"></MenuItem>
             </MenuItem>
         </Menu>
         <ToolBar DockPanel.Dock="top">

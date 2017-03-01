@@ -31,10 +31,16 @@ namespace VkDownloader.Prototype.BusinessLogic.Model
         public string DefaultDownloadPath { get; set; }
     }
 
+    public class ConfigurationSettings
+    {
+        public string DefaultSettingsFilePath { get; set; }
+        public string TempSettingsFilePath { get; set; }
+    }
+
     public enum ScanningArea
     {
         None = 0,
-        Audios,
+        Audio,
         Wall,
         All
     }

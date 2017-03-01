@@ -9,13 +9,13 @@ namespace VkDownloader.Prototype.BusinessLogic.Concrete
     {
         public Settings Get(string path)
         {
-            return null;
-            //return new Settings
-            //{
-            //    AccountId = "id199989126",
-            //    DefaultDownloadPath = Directory.GetCurrentDirectory(),
-            //    ScanningArea = ScanningArea.Audios
-            //};
+            //return null;
+            return new Settings
+            {
+                AccountId = "id199989126",
+                DefaultDownloadPath = Directory.GetCurrentDirectory(),
+                ScanningArea = ScanningArea.Audio
+            };
         }
 
         public void Save(Settings settings, string path)

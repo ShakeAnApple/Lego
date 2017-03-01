@@ -13,7 +13,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using VkDownloader.Prototype;
 using VkDownloader.Prototype.BusinessLogic.Abstract;
 using VkDownloader.Prototype.BusinessLogic.Concrete;
 using VkDownloader.Prototype.ViewModels;
@@ -44,9 +43,16 @@ namespace VkDownloader.Prototype.Views
             }
             catch (ApplicationException ex)
             {
-                // TODO open settings dialog with warning message and Cancel button disabled
-                SettingsWindow.ShowSettingsDialog();
+                // TODO open settings dialog with warning message and Cancel button disabled or nope
+                var settingsController = new SettingsController();
+
+                SettingsWindow.ShowSettingsDialog(settingsController.SettingsViewModel);
             }
+        }
+
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

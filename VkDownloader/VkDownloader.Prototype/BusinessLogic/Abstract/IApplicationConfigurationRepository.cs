@@ -4,5 +4,6 @@
     {
         //var defaultSettingsPath = ConfigurationManager.AppSettings["defaultSettingsPath"].ToString();
         string GetDefaultSettingsPath();
+        void UpdateDefaultSettingsPath(string path);
     }
 }

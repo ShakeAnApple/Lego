@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:VkDownloader.Prototype.Views"
+        xmlns:local="clr-namespace:VkDownloader.Prototype"
+        xmlns:models="clr-namespace:VkDownloader.Prototype.BusinessLogic.Model"
         mc:Ignorable="d"
         Title="SettingsWindow" Height="300" Width="300">
     <Grid>
@@ -23,22 +24,31 @@
                         <GroupBox Header="Vk">
                             <StackPanel>
                                 <Label Target="{Binding ElementName=AccountIdTextBox}">_Account Id:</Label>
-                                <TextBox Name="AccountIdTextBox" Text="{Binding SomeText}"></TextBox>
+                                <TextBox Name="AccountIdTextBox" Text="{Binding AccountId}"></TextBox>
                                 <Label Target="{Binding ElementName=ScanningAreaRadioButton}">_Scanning Area:</Label>
                                 <StackPanel Grid.Column="1" Grid.Row="1">
-                                    <RadioButton Name="ScanningAreaRadioButton" GroupName="ScanningArea">Audio</RadioButton>
-                                    <RadioButton GroupName="ScanningArea">Wall</RadioButton>
-                                    <RadioButton GroupName="ScanningArea">Audio &amp; Wall</RadioButton>
+                                    <StackPanel.Resources>
+                                        <local:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+                                    </StackPanel.Resources>
+                                    <RadioButton Name="ScanningAreaRadioButton" GroupName="ScanningArea" IsChecked="{Binding Path=ScanningArea, 
+                                        Converter={StaticResource EnumToBooleanConverter}, 
+                                        ConverterParameter={x:Static models:ScanningArea.Audio}}">Audio</RadioButton>
+                                    <RadioButton GroupName="ScanningArea" IsChecked="{Binding Path=ScanningArea, 
+                                        Converter={StaticResource EnumToBooleanConverter}, 
+                                        ConverterParameter={x:Static models:ScanningArea.Wall}}">Wall</RadioButton>
+                                    <RadioButton GroupName="ScanningArea" IsChecked="{Binding Path=ScanningArea, 
+                                        Converter={StaticResource EnumToBooleanConverter}, 
+                                        ConverterParameter={x:Static models:ScanningArea.All}}">Audio &amp; Wall</RadioButton>
                                 </StackPanel>
                             </StackPanel>
                         </GroupBox>
                     </StackPanel>
 
                     <StackPanel Grid.Row="1">
-                        <Label Target="{Binding ElementName=PathTextBox}">_Default Download Path:</Label>
+                        <Label Target="{Binding ElementName=DownloadPathTextBox}">_Default Download Path:</Label>
                         <DockPanel LastChildFill="True">
-                            <Button DockPanel.Dock="Right">Browse...</Button>
-                            <TextBox Name="PathTextBox"></TextBox>
+                            <Button DockPanel.Dock="Right" Name="BrowseDownloadPath" Click="btnBrowseDownloadPath_Click">Browse...</Button>
+                            <TextBox Name="DownloadPathTextBox" Text="{Binding DefaultDownloadPath}"></TextBox>
                         </DockPanel>
                     </StackPanel>
 
@@ -53,11 +63,11 @@
 
                     <GroupBox Grid.Row="0" Header="Custom Settings file">
                         <StackPanel>
-                            <Label Target="{Binding ElementName=TemporarySettingsFilePath}">_Load Settings From:</Label>
+                            <Label Target="{Binding ElementName=TemporarySettingsFilePathTextBox}">_Load Settings From:</Label>
                             <DockPanel LastChildFill="True">
-                                <Button DockPanel.Dock="Right">Load</Button>
-                                <Button DockPanel.Dock="Right">Browse...</Button>
-                                <TextBox Name="TemporarySettingsFilePath"></TextBox>
+                                <Button DockPanel.Dock="Right" Command="{Binding LoadTempSettingsCommand}">Load</Button>
+                                <Button DockPanel.Dock="Right" Name="BrowseTempSettings" Click="btnBrowseTempSettings_Click">Browse...</Button>
+                                <TextBox Name="TemporarySettingsFilePathTextBox" Text="{Binding TempSettingsFilePath}"></TextBox>
                             </DockPanel>
                             <Button>Get back to default</Button>
                         </StackPanel>
@@ -66,8 +76,8 @@
                     <StackPanel Grid.Row="1">
                         <Label Target="{Binding ElementName=DefaultSettingsPathTextBox}">_Default Settings File Path:</Label>
                         <DockPanel LastChildFill="True">
-                            <Button DockPanel.Dock="Right">Browse...</Button>
-                            <TextBox Name="DefaultSettingsPathTextBox"></TextBox>
+                            <Button DockPanel.Dock="Right" Name="BrowseDefaultSettings" Click="btnBrowseDefaultSettings_Click">Browse...</Button>
+                            <TextBox Name="DefaultSettingsPathTextBox" Text="{Binding DefaultSettingsFilePath}"></TextBox>
                         </DockPanel>
                     </StackPanel>
                 </Grid>
@@ -80,8 +90,8 @@
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="1">OK</Button>
-            <Button Grid.Column="2">Cancel</Button>
+            <Button Grid.Column="1" Name="Ok" Click="btnOk_Click">OK</Button>
+            <Button Grid.Column="2" Name="Cancel" Click="btnCancel_Click">Cancel</Button>
         </Grid>
     </Grid>
 </Window>

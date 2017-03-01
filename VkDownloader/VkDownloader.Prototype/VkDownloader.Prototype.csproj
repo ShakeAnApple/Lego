@@ -38,6 +38,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -70,10 +71,12 @@
     <Compile Include="BusinessLogic\Model\Context.cs" />
     <Compile Include="BusinessLogic\Model\Models.cs" />
     <Compile Include="BusinessLogic\Concrete\SettingsRepositoryMock.cs" />
+    <Compile Include="EnumToBooleanConverter.cs" />
     <Compile Include="ViewModels\ApplicationViewModel.cs" />
     <Compile Include="ViewModels\AudioEntryViewModel.cs" />
     <Compile Include="ViewModels\AudioListViewModel.cs" />
     <Compile Include="ViewModels\BaseNotifiableViewModel.cs" />
+    <Compile Include="ViewModels\SettingsController.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
