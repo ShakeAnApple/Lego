@@ -1,0 +1,62 @@
+﻿<Window x:Class="VkDownloader.Prototype.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VkDownloader.Prototype"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <DockPanel LastChildFill="True">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="Settings" Command="{Binding EditSettingsCommand}"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Name="Exit" Click="btnExit_Click" Header="Exit"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <ToolBar DockPanel.Dock="top">
+            <Button Command="{Binding AudioList.GetCommand}">Get audios</Button>
+            <Button Command="{Binding AudioList.ShowDownloadedCommand}">Show downloaded</Button>
+            <Button Command="{Binding AudioList.DownloadCheckedCommand}">Download checked</Button>
+        </ToolBar>
+        <StatusBar DockPanel.Dock="Bottom">
+            <TextBlock Text="{Binding ElementName=pbStatus, Path=Value, StringFormat={}{0:0}%}" 
+                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <StatusBarItem HorizontalContentAlignment="Stretch">
+                <ProgressBar Name="pbStatus" Value="100" Height="18" />
+            </StatusBarItem>
+        </StatusBar>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ListView ItemsSource="{Binding AudioList.Items}" >
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn>
+                            <GridViewColumn.Header>
+                                <CheckBox IsChecked="{Binding AudioList.AllChecked}" />
+                            </GridViewColumn.Header>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding Path=IsChecked}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Artist}">Artist</GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Title}">Title</GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Length}">Length</GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=AddedDate}">Added Date</GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=UploadedDate}">Uploaded Date</GridViewColumn>
+                    </GridView>
+                </ListView.View>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="ToolTip">
+                            <Setter.Value>
+                                <ToolTip Content="{Binding Path=FilePath}" />
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </ScrollViewer>
+    </DockPanel>
+</Window>
